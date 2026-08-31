@@ -1,0 +1,13 @@
+DRAPER HOCKEY V2.7 — GHOSTED LOGO HERO
+
+Changes:
+- removed the visible hero card feel
+- removed the corner info cards
+- pushed the approved primary logo farther into the background
+- reduced opacity for a ghosted look
+- kept subtle hot pink / cyan glow behind it
+- made the left editorial content the primary foreground element again
+
+Files changed:
+- layouts/index.html
+- static/css/main.css

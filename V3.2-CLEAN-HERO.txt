@@ -1,0 +1,6 @@
+DRAPER HOCKEY V3.2 — CLEAN HERO
+
+- Removed the foreground mask/logo stamp entirely.
+- Kept only the giant ghosted background logo architecture.
+- Added defensive CSS so stale/cached foreground logo markup cannot render.
+- Shifted the ghosted architecture slightly farther right for cleaner composition.

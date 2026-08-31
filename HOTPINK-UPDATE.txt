@@ -1,0 +1,22 @@
+DRAPER HOCKEY V2.1 — HOT PINK SIGNATURE UPDATE
+
+Primary signature pink:
+#FF1493
+
+Hot accent:
+#FF008C
+
+Supporting palette:
+Deep navy / ice white / electric cyan / Nashville gold / camo olive
+
+This patch makes hot pink a primary brand signal across:
+- DRAPER wordmark period
+- navigation branding
+- hero glow
+- CTA buttons
+- ticker
+- section emphasis
+- community accents
+- form focus states
+- closing section
+- hover states and micro-details

@@ -1,0 +1,19 @@
+DRAPER HOCKEY V2.4 — HERO REBUILD
+
+Why the old one looked bland:
+- empty right side
+- no visual anchor above the fold
+- ghost mark too faint and too buried
+- not enough layered content or contrast
+
+What this patch changes:
+- rebuilt hero into a real 2-column sports landing layout
+- big left editorial statement
+- right-side visual panel with photo slot OR branded fallback
+- much more visible ghosted goal + stick watermark
+- added corner info cards
+- added 3-card strip under hero so the page has more immediate substance
+
+Files changed:
+- layouts/index.html
+- static/css/main.css

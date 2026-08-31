@@ -1,0 +1,18 @@
+baseURL = "https://draperhockey.com/"
+languageCode = "en-us"
+title = "DRAPER | Goaltending"
+enableRobotsTXT = true
+
+[params]
+  description = "DRAPER Goaltending — a Nashville hockey journey built in the crease."
+  tagline = "Built in the Crease."
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"

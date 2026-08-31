@@ -1,0 +1,17 @@
+DRAPER HOCKEY V2.3 — GHOSTED HERO MARK
+
+Updated the hero background to use a clean ghosted emblem:
+- hockey goal outline
+- goalie stick outline
+- subtle pink/cyan glow
+- no chart/grid style line graphics
+
+This is intended to feel like:
+- a watermark
+- a clean logo/emblem
+- sporty but premium
+- easy to evolve later into a real DRAPER icon
+
+Files changed:
+- layouts/index.html
+- static/css/main.css

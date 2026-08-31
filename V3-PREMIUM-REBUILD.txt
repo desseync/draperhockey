@@ -1,0 +1,20 @@
+DRAPER HOCKEY V3 PREMIUM REBUILD
+
+Full homepage redesign based on the approved premium creative direction.
+
+Major changes:
+- rebuilt hero from scratch
+- approved logo used as brand architecture, not a card
+- ghosted cropped logo + live goal/net environment
+- mouse-reactive lighting and subtle parallax
+- new premium condensed typography
+- dark glass performance rail
+- removed all white template cards
+- rebuilt development, media, Nashville, community and partners sections
+- responsive mobile navigation and reduced-motion support
+
+Optional future photography paths already wired:
+/static/images/draper/game.webp
+/static/images/draper/training.webp
+/static/images/draper/personality.webp
+/static/images/draper/portrait.webp

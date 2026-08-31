@@ -1,0 +1,15 @@
+DRAPER HOCKEY V2.6 — APPROVED PRIMARY LOGO HERO
+
+This patch replaces the previous hero artwork with Draper's approved primary logo.
+
+What changed:
+- uses the exact approved skull-goalie logo as the hero art
+- background removed to transparent PNG for cleaner web use
+- CSS handles the floating effect, glow, depth, and hover motion
+- live hero background remains editable in HTML/CSS
+- identity block updated to reference the primary mark
+
+Files changed:
+- layouts/index.html
+- static/css/main.css
+- static/images/draper/approved-primary-logo.png

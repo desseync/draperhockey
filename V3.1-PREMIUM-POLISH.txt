@@ -1,0 +1,20 @@
+DRAPER HOCKEY V3.1 — PREMIUM POLISH PASS
+
+Changes:
+- fixed visible "Skip to content" accessibility link
+- removed both floating agency/concept-label boxes
+- created a mask/shield-only web mark by cropping the approved primary logo
+- changed the foreground hero mark from the full logo to the mask/shield icon
+- tightened hero copy around the actual journey
+- rebuilt the lower hero row as one smoked-glass telemetry rail
+- strengthened the header identity with a tiny approved mask mark
+- added subtle cursor parallax, scroll depth, light sweep, film grain, particle drift,
+  goal breathing, logo shimmer, mask shimmer, and telemetry scan motion
+- added reduced-motion fallbacks
+
+Files changed:
+- layouts/index.html
+- layouts/partials/nav.html
+- static/css/main.css
+- static/js/main.js
+- static/images/draper/primary-mask-mark.png
