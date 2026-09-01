@@ -10,3 +10,18 @@
 @media(max-width:1250px){.metrics{grid-template-columns:repeat(4,1fr)}.scoregrid{grid-template-columns:repeat(2,1fr)}.platform-grid,.product-grid{grid-template-columns:repeat(2,1fr)}.goal-editor{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:1050px){.card,.card.wide{grid-column:span 6}.notes{grid-template-columns:1fr 1fr}.offset-hero{grid-template-columns:1fr}.offset-hero>div:first-child{border-right:0;border-bottom:1px solid #173149;padding-right:0;padding-bottom:12px}}
 @media(max-width:720px){.app{width:min(100% - 16px,1540px)}.brand span,.save-state,.topactions .ghost{display:none}.hero{grid-template-columns:1fr;padding-top:28px}.hero-status{justify-self:start}.metrics{grid-template-columns:repeat(2,1fr)}.card,.card.wide{grid-column:1/-1}.notes,.scoregrid,.scoregrid.two,.platform-grid,.product-grid,.goal-editor,.offset-breakdown{grid-template-columns:1fr}.addline{grid-template-columns:1fr 1fr}.addline .input:first-child{grid-column:1/-1}.mile{grid-template-columns:90px 14px 1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.topactions .btn:not(#quickAddBtn){display:none}}
+
+/* V2.1 manual action ordering */
+.reorder-hint{margin:-2px 0 9px;color:#617b8e;font-size:8px;letter-spacing:.1em;font-weight:900}
+.item.sortable{grid-template-columns:auto 1fr auto;cursor:grab;transition:border-color .15s ease,background .15s ease,opacity .15s ease,transform .15s ease}
+.item.sortable:active{cursor:grabbing}
+.item.sortable.dragging{opacity:.42;transform:scale(.99)}
+.item.sortable.drag-over{border-color:rgba(0,217,255,.52);background:rgba(0,217,255,.055);box-shadow:inset 3px 0 0 var(--cyan)}
+.item-left{display:flex;align-items:flex-start;gap:7px}
+.drag-handle,.order-btn{border:0;background:transparent;color:#536f83;cursor:grab;padding:0;font-weight:950;line-height:1}
+.drag-handle{font-size:15px;letter-spacing:-3px;margin:0 2px 0 -2px;touch-action:none}
+.drag-handle:hover,.order-btn:hover{color:var(--cyan)}
+.item-controls{display:flex;align-items:center;gap:5px}
+.order-btn{font-size:12px;cursor:pointer;padding:1px 3px}
+@media(min-width:721px){.order-btn{display:none}}
+@media(max-width:720px){.drag-handle{display:none}.reorder-hint{font-size:7px}.item-controls{gap:8px}.order-btn{font-size:15px}}

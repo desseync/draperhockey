@@ -89,11 +89,28 @@ async function saveNow(){
 }
 function del(source,id){ state[source]=state[source].filter(x=>x.id!==id); queueSave(); render(); }
 function toggle(source,id,value){ const x=state[source].find(x=>x.id===id); if(x)x.done=value; queueSave(); render(); }
+function moveItem(source,id,direction){
+  const arr=state[source]; if(!Array.isArray(arr)) return;
+  const i=arr.findIndex(x=>x.id===id); if(i<0) return;
+  const j=direction==="up"?i-1:i+1; if(j<0||j>=arr.length) return;
+  [arr[i],arr[j]]=[arr[j],arr[i]]; queueSave(); render();
+}
+function moveBefore(source,draggedId,targetId){
+  const arr=state[source]; if(!Array.isArray(arr)||draggedId===targetId) return;
+  const from=arr.findIndex(x=>x.id===draggedId); if(from<0) return;
+  const [item]=arr.splice(from,1);
+  const target=arr.findIndex(x=>x.id===targetId);
+  if(target<0) arr.push(item); else arr.splice(target,0,item);
+  queueSave(); render();
+}
 function edit(source,id,key,value){ const x=state[source].find(x=>x.id===id); if(x)x[key]=value; queueSave(); renderMetrics(); }
 function editGoal(key,value){ state.goals[key]=num(value); queueSave(); render(); }
 
 function task(x,source){
-  return `<div class="item ${x.done?"done":""}"><input class="check" type="checkbox" ${x.done?"checked":""} data-toggle="${source}" data-id="${x.id}"><div><div class="title">${esc(x.title)}</div><div class="badges">${badge(x.category)}${badge(x.priority)}${badge(x.status)}</div>${x.notes?`<div class="sub">${esc(x.notes)}</div>`:""}</div><button class="x" data-delete="${source}" data-id="${x.id}">×</button></div>`;
+  const sortable=source==="actions";
+  const left=sortable?`<div class="item-left"><button class="drag-handle" type="button" title="Drag to reorder" aria-label="Drag to reorder">⋮⋮</button><input class="check" type="checkbox" ${x.done?"checked":""} data-toggle="${source}" data-id="${x.id}"></div>`:`<input class="check" type="checkbox" ${x.done?"checked":""} data-toggle="${source}" data-id="${x.id}">`;
+  const controls=sortable?`<div class="item-controls"><button class="order-btn" type="button" data-move="up" data-source="${source}" data-id="${x.id}" title="Move up">↑</button><button class="order-btn" type="button" data-move="down" data-source="${source}" data-id="${x.id}" title="Move down">↓</button><button class="x" data-delete="${source}" data-id="${x.id}">×</button></div>`:`<button class="x" data-delete="${source}" data-id="${x.id}">×</button>`;
+  return `<div class="item ${x.done?"done":""} ${sortable?"sortable":""}" ${sortable?`draggable="true" data-sort-source="${source}" data-id="${x.id}"`:""}>${left}<div><div class="title">${esc(x.title)}</div><div class="badges">${badge(x.category)}${badge(x.priority)}${badge(x.status)}</div>${x.notes?`<div class="sub">${esc(x.notes)}</div>`:""}</div>${controls}</div>`;
 }
 function basic(x,source,title=x.title){
   return `<div class="item"><div></div><div><div class="title">${esc(title)}</div><div class="badges">${badge(x.org)}${badge(x.status)}${badge(x.priority)}${badge(x.verified)}</div>${x.window?`<div class="sub">${esc(x.window)}</div>`:""}${x.notes?`<div class="sub">${esc(x.notes)}</div>`:""}</div><button class="x" data-delete="${source}" data-id="${x.id}">×</button></div>`;
@@ -166,7 +183,7 @@ function renderGoalBoard(){
   </div>`;
 }
 function renderDashboard(){
-  const pri=state.actions.filter(x=>!x.done).sort((a,b)=>priorityRank(a.priority)-priorityRank(b.priority)).slice(0,6);
+  const pri=state.actions.filter(x=>!x.done).slice(0,6);
   const watch=state.watchlist.filter(x=>!["Pass","Closed"].includes(x.status)).slice(0,4);
   const film=state.film.slice().sort((a,b)=>(b.date||"").localeCompare(a.date||"")).slice(0,4);
   return `<div class="grid">
@@ -178,7 +195,7 @@ function renderDashboard(){
     ${card("FILM","Latest / Queue",film.length?`<div class="list">${film.map(x=>basic({...x,org:x.type,status:x.quality},"film",x.title)).join("")}</div>`:empty("Add clips or film tasks."))}
   </div>`;
 }
-function renderActions(){ return `<div class="grid">${card("EXECUTION","Action Board",state.actions.length?`<div class="list">${state.actions.sort((a,b)=>Number(a.done)-Number(b.done)||priorityRank(a.priority)-priorityRank(b.priority)).map(x=>task(x,"actions")).join("")}</div>`:empty(),"full",actionBtn("action","+ ACTION"))}</div>`; }
+function renderActions(){ return `<div class="grid">${card("EXECUTION","Action Board",state.actions.length?`<div class="reorder-hint">DRAG ACTIONS INTO YOUR ORDER • USE ↑ ↓ ON TOUCH DEVICES</div><div class="list">${state.actions.map(x=>task(x,"actions")).join("")}</div>`:empty(),"full",actionBtn("action","+ ACTION"))}</div>`; }
 function renderRoadmap(){ return `<div class="grid">${card("2026 →","Development & Opportunity Roadmap",timeline(),"full",actionBtn("milestone","+ MILESTONE"))}</div>`; }
 function renderDevelopment(){
   const coaches=state.contacts.filter(x=>["Coach","Program","Coach / Program"].includes(x.type));
@@ -259,6 +276,15 @@ function bindDynamic(){
   document.querySelectorAll("[data-edit]").forEach(el=>el.onchange=()=>{const [s,id,k]=el.dataset.edit.split("|"); edit(s,Number(id),k,el.value); if(["partners","merch","budget","otherOffsets","socialAccounts","socialSnapshots"].includes(s)) render();});
   document.querySelectorAll("[data-goal]").forEach(el=>el.onchange=()=>editGoal(el.dataset.goal,el.value));
   document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>openAdd(b.dataset.add));
+  document.querySelectorAll("[data-move]").forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();moveItem(b.dataset.source,Number(b.dataset.id),b.dataset.move)});
+  let dragged=null;
+  document.querySelectorAll("[data-sort-source]").forEach(el=>{
+    el.addEventListener("dragstart",e=>{dragged={source:el.dataset.sortSource,id:Number(el.dataset.id)};el.classList.add("dragging");e.dataTransfer.effectAllowed="move";});
+    el.addEventListener("dragover",e=>{if(!dragged||dragged.source!==el.dataset.sortSource)return;e.preventDefault();e.dataTransfer.dropEffect="move";el.classList.add("drag-over")});
+    el.addEventListener("dragleave",()=>el.classList.remove("drag-over"));
+    el.addEventListener("drop",e=>{e.preventDefault();el.classList.remove("drag-over");if(dragged)moveBefore(dragged.source,dragged.id,Number(el.dataset.id));});
+    el.addEventListener("dragend",()=>{document.querySelectorAll(".dragging,.drag-over").forEach(x=>x.classList.remove("dragging","drag-over"));dragged=null;});
+  });
   document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{currentTab=b.dataset.tab;render()});
 }
 
