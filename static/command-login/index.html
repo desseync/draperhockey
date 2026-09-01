@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>DRAPER Command — Sign In</title>
+<link rel="stylesheet" href="/command-login/assets/login.css">
+</head>
+<body>
+<main class="login-shell">
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <section class="login-card" aria-labelledby="login-title">
+    <a class="brand" href="/" aria-label="Back to Draper Hockey"><span class="mark">D.</span><span>DRAPER <b>COMMAND</b></span></a>
+    <div class="eyebrow">PRIVATE • PARENT MANAGED</div>
+    <h1 id="login-title">THE<br>LONG GAME<span>.</span></h1>
+    <p class="lede">The private operating system behind Draper Hockey.</p>
+    <form id="loginForm">
+      <label>Email<input id="email" name="email" type="email" autocomplete="username" required></label>
+      <label>Password<input id="password" name="password" type="password" autocomplete="current-password" required></label>
+      <button id="submitBtn" type="submit">ENTER COMMAND CENTER</button>
+      <div id="message" class="message" role="status" aria-live="polite"></div>
+    </form>
+    <div class="security"><span></span>Authenticated with Netlify Identity. Private data is loaded only after authorization.</div>
+  </section>
+</main>
+<script src="/command-login/assets/login.js" defer></script>
+</body>
+</html>

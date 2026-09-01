@@ -7,6 +7,27 @@
   HUGO_ENV = "production"
   HUGO_ENABLEGITINFO = "true"
 
+# DRAPER Command Center: only Identity users with the "command" role can load this path.
+[[redirects]]
+  from = "/command"
+  to = "/command/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/command/*"
+  to = "/command/:splat"
+  status = 200
+  force = true
+  conditions = {Role = ["command"]}
+
+# Unauthorized visitors receive the login shell, never the command-center files.
+[[redirects]]
+  from = "/command/*"
+  to = "/command-login/"
+  status = 401
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -24,3 +45,21 @@
   for = "/js/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/command/*"
+  [headers.values]
+    Cache-Control = "private, no-store, max-age=0"
+    Pragma = "no-cache"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    X-Frame-Options = "DENY"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
+
+[[headers]]
+  for = "/command-login/*"
+  [headers.values]
+    Cache-Control = "private, no-store, max-age=0"
+    Pragma = "no-cache"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+    X-Frame-Options = "DENY"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
