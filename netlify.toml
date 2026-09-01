@@ -7,26 +7,9 @@
   HUGO_ENV = "production"
   HUGO_ENABLEGITINFO = "true"
 
-# DRAPER Command Center: only Identity users with the "command" role can load this path.
-[[redirects]]
-  from = "/command"
-  to = "/command/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/command/*"
-  to = "/command/:splat"
-  status = 200
-  force = true
-  conditions = {Role = ["command"]}
-
-# Unauthorized visitors receive the login shell, never the command-center files.
-[[redirects]]
-  from = "/command/*"
-  to = "/command-login/"
-  status = 401
-  force = true
+# DRAPER Command Center routing is protected by an Edge Function.
+# This avoids self-rewrite redirect loops while still protecting the HTML,
+# JS, CSS, and any other files under /command/.
 
 [[headers]]
   for = "/*"
