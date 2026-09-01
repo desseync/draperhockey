@@ -47,7 +47,7 @@ export default async (req) => {
 
       state._meta = {
         ...(state._meta || {}),
-        version: 2,
+        version: 3,
         updatedAt: new Date().toISOString(),
         updatedBy: user.email
       };
