@@ -249,5 +249,12 @@
   <strong>BUILT IN THE CREASE.</strong>
 </section>
 
+<!-- Netlify Identity callback handler.
+     Netlify password-recovery emails return to the site with #recovery_token=... .
+     Loading the official Identity widget on the landing page lets Netlify consume
+     that token and present the secure set-new-password flow. No Identity UI is
+     shown during ordinary visits. -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
 </div>
 {{ end }}
